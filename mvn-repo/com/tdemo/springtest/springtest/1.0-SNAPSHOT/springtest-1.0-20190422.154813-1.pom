@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <parent>
+    <groupId>com.tdemo.found</groupId>
+    <artifactId>found</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.tdemo.springtest</groupId>
+  <artifactId>springtest</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>springtest Maven Webapp</name>
+
+
+  <properties>
+    <github.global.server>github</github.global.server>
+  </properties>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.8.1</version>
+        <configuration>
+        <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+        </configuration>
+      </plugin>
+
+    <plugin>
+        <groupId>com.github.github</groupId>
+        <artifactId>site-maven-plugin</artifactId>
+        <configuration>
+          <message >Maven artifacts for ${project.version}</message>
+          <noJekyll>true</noJekyll>
+          <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
+          <branch>refs/heads/master</branch>
+          <merge>true</merge>
+          <includes>
+            <include>**/*</include>
+          </includes>
+          <repositoryName>mavenrepository</repositoryName>
+          <repositoryOwner>1329409753@qq.com</repositoryOwner>
+          <server>github</server>
+          <path>https://github.com/Dananel/mavenrepository.git</path>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>site</goal>
+            </goals>
+            <phase>deploy</phase>
+          </execution>
+        </executions>
+      </plugin>
+
+
+    <!-- 编译插件 -->
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+
+  </build>
+
+
+   <!-- &lt;!&ndash; 使用分发管理将本项目打成jar包，直接上传到指定服务器 &ndash;&gt;
+    <distributionManagement>
+      &lt;!&ndash;正式版本&ndash;&gt;
+      <repository>
+        &lt;!&ndash; nexus服务器中用户名：在settings.xml中<server>的id&ndash;&gt;
+        <id>github</id>
+        &lt;!&ndash; 这个名称自己定义 &ndash;&gt;
+        <name>Release repository</name>
+        <url>https://github.com/Dananel/mavenrepository/refs/heads/master</url>
+      </repository>
+
+    </distributionManagement>-->
+
+</project>
